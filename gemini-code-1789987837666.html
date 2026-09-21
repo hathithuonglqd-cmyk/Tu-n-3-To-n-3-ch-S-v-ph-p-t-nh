@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>20 Bài Tập Tự Luận Toán 3 - Số Và Phép Tính</title>
+  <!-- Nhúng Font chữ Tiếng Việt đẹp -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary: #4EA8DE;
+      --secondary: #90E0EF;
+      --accent-yellow: #FFD166;
+      --accent-pink: #FF7B9C;
+      --accent-green: #06D6A0;
+      --card-bg: #FFFFFF;
+      --text-color: #2B2D42;
+      --correct-bg: #D4EDDA;
+      --correct-border: #28A745;
+      --wrong-bg: #F8D7DA;
+      --wrong-border: #DC3545;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Nunito', 'Fredoka', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #E0F2FE 0%, #FCF6BD 100%);
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--text-color);
+    }
+
+    .container {
+      width: 100%;
+      max-width: 900px;
+      background-color: var(--card-bg);
+      border-radius: 25px;
+      box-shadow: 0 12px 35px rgba(0,0,0,0.1);
+      padding: 30px;
+      border: 5px solid #FFFFFF;
+    }
+
+    h1 {
+      font-family: 'Fredoka', cursive;
+      text-align: center;
+      color: #0077B6;
+      font-size: 28px;
+      margin-top: 0;
+      margin-bottom: 5px;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-weight: 700;
+      color: #6C757D;
+      margin-bottom: 25px;
+    }
+
+    /* Màn hình Đăng Nhập */
+    .login-box {
+      text-align: center;
+      padding: 30px 10px;
+    }
+
+    .avatar-welcome {
+      font-size: 70px;
+      margin-bottom: 10px;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      text-align: left;
+      max-width: 380px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    label {
+      font-weight: 800;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 12px 18px;
+      border: 3px solid #E9ECEF;
+      border-radius: 15px;
+      font-size: 16px;
+      font-weight: 700;
+      outline: none;
+      transition: all 0.3s;
+    }
+
+    input[type="text"]:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 10px rgba(78, 168, 222, 0.3);
+    }
+
+    .btn-start, .btn-submit {
+      background-color: #0077B6;
+      color: white;
+      border: none;
+      padding: 14px 40px;
+      font-size: 18px;
+      font-weight: 800;
+      border-radius: 25px;
+      cursor: pointer;
+      box-shadow: 0 5px 0px #005F73;
+      transition: all 0.2s;
+    }
+
+    .btn-start:hover, .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 7px 0px #005F73;
+    }
+
+    /* Header Bar */
+    .header-bar {
+      position: sticky;
+      top: 10px;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #E0F2FE;
+      padding: 12px 20px;
+      border-radius: 18px;
+      margin-bottom: 20px;
+      font-weight: 800;
+      border: 2px solid #BEE9E8;
+    }
+
+    .timer {
+      background: #0077B6;
+      color: white;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 18px;
+    }
+
+    /* Bảng điểm */
+    .scoreboard {
+      background-color: #E0F2FE;
+      border: 3px solid #90E0EF;
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 25px;
+      text-align: center;
+    }
+
+    .score-num {
+      font-size: 36px;
+      font-weight: 900;
+      color: #0077B6;
+    }
+
+    /* Question Card */
+    .question-card {
+      background-color: #F8F9FA;
+      border: 2px solid #E9ECEF;
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 20px;
+    }
+
+    .q-title {
+      font-weight: 800;
+      color: #0077B6;
+      font-size: 17px;
+      margin-bottom: 12px;
+    }
+
+    .essay-input {
+      width: 100%;
+      min-height: 60px;
+      padding: 10px;
+      border: 2px solid #CED4DA;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      outline: none;
+      resize: vertical;
+    }
+
+    .essay-input:focus {
+      border-color: var(--primary);
+    }
+
+    .short-input {
+      width: 140px;
+      padding: 6px 12px;
+      border: 2px solid #ADB5BD;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 700;
+      text-align: center;
+      outline: none;
+      margin: 2px 4px;
+    }
+
+    /* Feedback */
+    .feedback-msg {
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .correct-card {
+      background-color: var(--correct-bg) !important;
+      border-color: var(--correct-border) !important;
+    }
+
+    .wrong-card {
+      background-color: var(--wrong-bg) !important;
+      border-color: var(--wrong-border) !important;
+    }
+
+    .feedback-correct {
+      color: #155724;
+      background-color: #D4EDDA;
+    }
+
+    .feedback-wrong {
+      color: #721C24;
+      background-color: #F8D7DA;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  
+  <!-- MÀN HÌNH ĐĂNG NHẬP -->
+  <div id="screen-login" class="login-box">
+    <div class="avatar-welcome">📐</div>
+    <h1>20 BÀI TẬP TỰ LUẬN TOÁN 3</h1>
+    <div class="subtitle">PHẦN 1: SỐ VÀ PHÉP TÍNH</div>
+    
+    <div class="form-group">
+      <label for="student-name">👤 Họ và tên học sinh:</label>
+      <input type="text" id="student-name" placeholder="Nhập họ và tên..." autocomplete="off">
+    </div>
+    
+    <div class="form-group">
+      <label for="student-class">🏫 Lớp:</label>
+      <input type="text" id="student-class" placeholder="Nhập tên lớp (VD: 3A)..." autocomplete="off">
+    </div>
+
+    <button class="btn-start" onclick="startGame()">BẮT ĐẦU LÀM BÀI 📝</button>
+  </div>
+
+  <!-- MÀN HÌNH BÀI TẬP -->
+  <div id="screen-quiz" class="hidden">
+    <div class="header-bar">
+      <div>👤 <span id="display-name"></span> - Lớp: <span id="display-class"></span></div>
+      <div class="timer">⏱️ <span id="time-clock">00:00</span></div>
+    </div>
+
+    <!-- MÀN HÌNH BẢNG ĐIỂM -->
+    <div id="scoreboard-box" class="scoreboard hidden">
+      <h2>🎉 KẾT QUẢ BÀI LÀM TỰ LUẬN</h2>
+      <p style="font-weight: 800;">Thời gian hoàn thành: <span id="res-time" style="color: #0077B6;"></span></p>
+      <div class="score-num" id="score-total">0 / 10</div>
+      <p style="color: #6C757D; font-weight: 700; margin-top: 10px;">
+        👇 Xem chi tiết bài giải và chấm điểm từng câu bên dưới:
+      </p>
+    </div>
+
+    <form id="quiz-form">
+      
+      <!-- CÂU 1 -->
+      <div class="question-card" id="card-q1">
+        <div class="q-title">Bài 1: Viết số thích hợp vào chỗ trống:</div>
+        <p>a) Số "Bốn trăm linh năm" được viết là: <input type="text" class="short-input" id="q1-a"></p>
+        <p>b) Số 782 được đọc là: <input type="text" class="essay-input" id="q1-b" placeholder="Nhập cách đọc số..."></p>
+        <div class="feedback-msg hidden" id="fb-q1"></div>
+      </div>
+
+      <!-- CÂU 2 -->
+      <div class="question-card" id="card-q2">
+        <div class="q-title">Bài 2: Viết số 645 thành tổng các chục, đơn vị, trăm:</div>
+        <p>645 = <input type="text" class="short-input" id="q2-1"> + <input type="text" class="short-input" id="q2-2"> + <input type="text" class="short-input" id="q2-3"></p>
+        <div class="feedback-msg hidden" id="fb-q2"></div>
+      </div>
+
+      <!-- CÂU 3 -->
+      <div class="question-card" id="card-q3">
+        <div class="q-title">Bài 3: Đặt tính rồi tính kết quả của phép cộng: 436 + 248</div>
+        <textarea class="essay-input" id="q3-process" placeholder="Nhập lời giải/phép tính..."></textarea>
+        <p>➜ Kết quả cuối cùng = <input type="text" class="short-input" id="q3-ans"></p>
+        <div class="feedback-msg hidden" id="fb-q3"></div>
+      </div>
+
+      <!-- CÂU 4 -->
+      <div class="question-card" id="card-q4">
+        <div class="q-title">Bài 4: Đặt tính rồi tính kết quả của phép trừ: 752 - 319</div>
+        <textarea class="essay-input" id="q4-process" placeholder="Nhập lời giải/phép tính..."></textarea>
+        <p>➜ Kết quả cuối cùng = <input type="text" class="short-input" id="q4-ans"></p>
+        <div class="feedback-msg hidden" id="fb-q4"></div>
+      </div>
+
+      <!-- CÂU 5 -->
+      <div class="question-card" id="card-q5">
+        <div class="q-title">Bài 5: Tính kết quả của phép nhân: 124 × 3</div>
+        <textarea class="essay-input" id="q5-process" placeholder="Nhập từng bước tính..."></textarea>
+        <p>➜ Kết quả = <input type="text" class="short-input" id="q5-ans"></p>
+        <div class="feedback-msg hidden" id="fb-q5"></div>
+      </div>
+
+      <!-- CÂU 6 -->
+      <div class="question-card" id="card-q6">
+        <div class="q-title">Bài 6: Tính kết quả phép chia: 84 : 4</div>
+        <p>➜ Kết quả = <input type="text" class="short-input" id="q6-ans"></p>
+        <div class="feedback-msg hidden" id="fb-q6"></div>
+      </div>
+
+      <!-- CÂU 7 -->
+      <div class="question-card" id="card-q7">
+        <div class="q-title">Bài 7: Tính giá trị của biểu thức: 150 + 50 × 2</div>
+        <textarea class="essay-input" id="q7-process" placeholder="Trình bày các bước tính..."></textarea>
+        <p>➜ Kết quả cuối cùng = <input type="text" class="short-input" id="q7-ans"></p>
+        <div class="feedback-msg hidden" id="fb-q7"></div>
+      </div>
+
+      <!-- CÂU 8 -->
+      <div class="question-card" id="card-q8">
+        <div class="q-title">Bài 8: Tính giá trị của biểu thức: (200 - 80) : 4</div>
+        <textarea class="essay-input" id="q8-process" placeholder="Trình bày các bước tính..."></textarea>
+        <p>➜ Kết quả cuối cùng = <input type="text" class="short-input" id="q8-ans"></p>
+        <div class="feedback-msg hidden" id="fb-q8"></div>
+      </div>
+
+      <!-- CÂU 9 -->
+      <div class="question-card" id="card-q9">
+        <div class="q-title">Bài 9: Tìm x, biết: x - 135 = 240</div>
+        <textarea class="essay-input" id="q9-process" placeholder="Trình bày bước tìm x..."></textarea>
+        <p>➜ x = <input type="text" class="short-input" id="q9-ans"></p>
+        <div class="feedback-msg hidden" id="fb-q9"></div>
+      </div>
+
+      <!-- CÂU 10 -->
+      <div class="question-card" id="card-q10">
+        <div class="q-title">Bài 10: Tìm x, biết: x × 5 = 450</div>
+        <textarea class="essay-input" id="q10-process" placeholder="Trình bày bước tìm x..."></textarea>
+        <p>➜ x = <input type="text" class="short-input" id="q10-ans"></p>
+        <div class="feedback-msg hidden" id="fb-q10"></div>
+      </div>
+
+      <!-- CÂU 11 -->
+      <div class="question-card" id="card-q11">
+        <div class="q-title">Bài 11: Số tròn trăm lớn nhất có 3 chữ số là số nào?</div>
+        <p>➜ Trả lời: <input type="text" class="short-input" id="q11-ans"></p>
+        <div class="feedback-msg hidden" id="fb-q11"></div>
+      </div>
+
+      <!-- CÂU 12 -->
+      <div class="question-card" id="card-q12">
+        <div class="q-title">Bài 12: Tìm số dư trong phép chia: 29 : 5</div>
+        <p>Thương là bao nhiêu và dư bao nhiêu?</p>
+        <p>• Thương = <input type="text" class="short-input" id="q12-q"> , Số dư = <input type="text" class="short-input" id="q12-r"></p>
+        <div class="feedback-msg hidden" id="fb-q12"></div>
+      </div>
+
+      <!-- CÂU 13 -->
+      <div class="question-card" id="card-q13">
+        <div class="q-title">Bài 13: Điền dấu (> , < , =) thích hợp vào chỗ trống: 300 + 40 ... 300 + 4</div>
+        <p>➜ Điền dấu: <input type="text" class="short-input" id="q13-ans" maxlength="1"></p>
+        <div class="feedback-msg hidden" id="fb-q13"></div>
+      </div>
+
+      <!-- CÂU 14 -->
+      <div class="question-card" id="card-q14">
+        <div class="q-title">Bài 14: Một cửa hàng buổi sáng bán được 135 kg gạo, buổi chiều bán được gấp 2 lần buổi sáng. Hỏi buổi chiều cửa hàng bán được bao nhiêu ki-lô-gam gạo?</div>
+        <textarea class="essay-input" id="q14-process" placeholder="Nhập bài giải chi tiết..."></textarea>
+        <p>➜ Đáp số = <input type="text" class="short-input" id="q14-ans"> kg gạo</p>
+        <div class="feedback-msg hidden" id="fb-q14"></div>
+      </div>
+
+      <!-- CÂU 15 -->
+      <div class="question-card" id="card-q15">
+        <div class="q-title">Bài 15: Có 48 quả cam chia đều vào 6 đĩa. Hỏi mỗi đĩa có bao nhiêu quả cam?</div>
+        <textarea class="essay-input" id="q15-process" placeholder="Nhập bài giải chi tiết..."></textarea>
+        <p>➜ Đáp số = <input type="text" class="short-input" id="q15-ans"> quả cam</p>
+        <div class="feedback-msg hidden" id="fb-q15"></div>
+      </div>
+
+      <!-- CÂU 16 -->
+      <div class="question-card" id="card-q16">
+        <div class="q-title">Bài 16: Lớp 3A có 32 học sinh xếp thành các hàng, mỗi hàng có 4 học sinh. Hỏi xếp được tất cả bao nhiêu hàng?</div>
+        <textarea class="essay-input" id="q16-process" placeholder="Nhập bài giải..."></textarea>
+        <p>➜ Đáp số = <input type="text" class="short-input" id="q16-ans"> hàng</p>
+        <div class="feedback-msg hidden" id="fb-q16"></div>
+      </div>
+
+      <!-- CÂU 17 -->
+      <div class="question-card" id="card-q17">
+        <div class="q-title">Bài 17: Tính giảm 60 đi 3 lần ta được kết quả là bao nhiêu?</div>
+        <p>➜ Trả lời: <input type="text" class="short-input" id="q17-ans"></p>
+        <div class="feedback-msg hidden" id="fb-q17"></div>
+      </div>
+
+      <!-- CÂU 18 -->
+      <div class="question-card" id="card-q18">
+        <div class="q-title">Bài 18: Tăng 15 lên 4 lần rồi cộng thêm 20 thì được kết quả bằng bao nhiêu?</div>
+        <textarea class="essay-input" id="q18-process" placeholder="Trình bày phép tính..."></textarea>
+        <p>➜ Kết quả = <input type="text" class="short-input" id="q18-ans"></p>
+        <div class="feedback-msg hidden" id="fb-q18"></div>
+      </div>
+
+      <!-- CÂU 19 -->
+      <div class="question-card" id="card-q19">
+        <div class="q-title">Bài 19: Mẹ mua 3 hộp bánh, mỗi hộp có 12 cái bánh. Sau đó mẹ mua thêm 15 cái bánh nữa. Hỏi mẹ đã mua tất cả bao nhiêu cái bánh?</div>
+        <textarea class="essay-input" id="q19-process" placeholder="Nhập bài giải hai bước tính..."></textarea>
+        <p>➜ Đáp số = <input type="text" class="short-input" id="q19-ans"> cái bánh</p>
+        <div class="feedback-msg hidden" id="fb-q19"></div>
+      </div>
+
+      <!-- CÂU 20 -->
+      <div class="question-card" id="card-q20">
+        <div class="q-title">Bài 20: Tìm một số, biết rằng lấy số đó chia cho 4 rồi cộng với 15 thì được kết quả là 25.</div>
+        <textarea class="essay-input" id="q20-process" placeholder="Trình bày lời giải..."></textarea>
+        <p>➜ Số cần tìm = <input type="text" class="short-input" id="q20-ans"></p>
+        <div class="feedback-msg hidden" id="fb-q20"></div>
+      </div>
+
+      <div style="text-align: center; margin-top: 35px;">
+        <button type="button" class="btn-submit" id="btn-submit-quiz" onclick="submitQuiz()">NỘP BÀI VÀ CHẤM ĐIỂM 🌟</button>
+      </div>
+
+    </form>
+  </div>
+
+</div>
+
+<script>
+  let timerInterval = null;
+  let secondsElapsed = 0;
+
+  function startGame() {
+    let name = document.getElementById('student-name').value.trim();
+    let sClass = document.getElementById('student-class').value.trim();
+
+    if (!name || !sClass) {
+      alert("Học sinh vui lòng điền đầy đủ Họ tên và Lớp nhé!");
+      return;
+    }
+
+    document.getElementById('display-name').innerText = name;
+    document.getElementById('display-class').innerText = sClass;
+
+    document.getElementById('screen-login').classList.add('hidden');
+    document.getElementById('screen-quiz').classList.remove('hidden');
+
+    timerInterval = setInterval(() => {
+      secondsElapsed++;
+      let mins = Math.floor(secondsElapsed / 60);
+      let secs = secondsElapsed % 60;
+      document.getElementById('time-clock').innerText = 
+        (mins < 10 ? "0" + mins : mins) + ":" + (secs < 10 ? "0" + secs : secs);
+    }, 1000);
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function submitQuiz() {
+    if (!confirm("Em có chắc chắn muốn nộp bài tự luận này không?")) return;
+
+    clearInterval(timerInterval);
+    let correctCount = 0;
+
+    function checkAnswer(cardId, fbId, isCorrect, correctText) {
+      let card = document.getElementById(cardId);
+      let fb = document.getElementById(fbId);
+      fb.classList.remove('hidden');
+
+      if (isCorrect) {
+        card.classList.add('correct-card');
+        fb.classList.add('feedback-correct');
+        fb.innerHTML = "✅ Đúng rồi! Giỏi lắm.";
+        return 1;
+      } else {
+        card.classList.add('wrong-card');
+        fb.classList.add('feedback-wrong');
+        fb.innerHTML = "❌ Chưa chính xác. Đáp án / Hướng dẫn đúng: " + correctText;
+        return 0;
+      }
+    }
+
+    // Chấm từng bài
+    let q1a = document.getElementById('q1-a').value.trim();
+    let q1b = document.getElementById('q1-b').value.trim().toLowerCase();
+    correctCount += checkAnswer('card-q1', 'fb-q1', (q1a === '405' && q1b.includes('bảy trăm tám mươi hai')), "a) 405; b) Bảy trăm tám mươi hai");
+
+    let q2_1 = document.getElementById('q2-1').value.trim();
+    let q2_2 = document.getElementById('q2-2').value.trim();
+    let q2_3 = document.getElementById('q2-3').value.trim();
+    correctCount += checkAnswer('card-q2', 'fb-q2', (q2_1 === '600' && q2_2 === '40' && q2_3 === '5'), "600 + 40 + 5");
+
+    correctCount += checkAnswer('card-q3', 'fb-q3', document.getElementById('q3-ans').value.trim() === '684', "436 + 248 = 684");
+
+    correctCount += checkAnswer('card-q4', 'fb-q4', document.getElementById('q4-ans').value.trim() === '433', "752 - 319 = 433");
+
+    correctCount += checkAnswer('card-q5', 'fb-q5', document.getElementById('q5-ans').value.trim() === '372', "124 × 3 = 372");
+
+    correctCount += checkAnswer('card-q6', 'fb-q6', document.getElementById('q6-ans').value.trim() === '21', "84 : 4 = 21");
+
+    correctCount += checkAnswer('card-q7', 'fb-q7', document.getElementById('q7-ans').value.trim() === '250', "150 + 100 = 250 (Nhân trước cộng sau)");
+
+    correctCount += checkAnswer('card-q8', 'fb-q8', document.getElementById('q8-ans').value.trim() === '30', "120 : 4 = 30 (Tính trong ngoặc trước)");
+
+    correctCount += checkAnswer('card-q9', 'fb-q9', document.getElementById('q9-ans').value.trim() === '375', "x = 240 + 135 = 375");
+
+    correctCount += checkAnswer('card-q10', 'fb-q10', document.getElementById('q10-ans').value.trim() === '90', "x = 450 : 5 = 90");
+
+    correctCount += checkAnswer('card-q11', 'fb-q11', document.getElementById('q11-ans').value.trim() === '900', "Số 900");
+
+    let q12q = document.getElementById('q12-q').value.trim();
+    let q12r = document.getElementById('q12-r').value.trim();
+    correctCount += checkAnswer('card-q12', 'fb-q12', (q12q === '5' && q12r === '4'), "Thương = 5, Số dư = 4 (vì 29 = 5 × 5 + 4)");
+
+    correctCount += checkAnswer('card-q13', 'fb-q13', document.getElementById('q13-ans').value.trim() === '>', "> (Vì 340 > 304)");
+
+    correctCount += checkAnswer('card-q14', 'fb-q14', document.getElementById('q14-ans').value.trim() === '270', "135 × 2 = 270 kg");
+
+    correctCount += checkAnswer('card-q15', 'fb-q15', document.getElementById('q15-ans').value.trim() === '8', "48 : 6 = 8 quả");
+
+    correctCount += checkAnswer('card-q16', 'fb-q16', document.getElementById('q16-ans').value.trim() === '8', "32 : 4 = 8 hàng");
+
+    correctCount += checkAnswer('card-q17', 'fb-q17', document.getElementById('q17-ans').value.trim() === '20', "60 : 3 = 20");
+
+    correctCount += checkAnswer('card-q18', 'fb-q18', document.getElementById('q18-ans').value.trim() === '80', "15 × 4 + 20 = 60 + 20 = 80");
+
+    correctCount += checkAnswer('card-q19', 'fb-q19', document.getElementById('q19-ans').value.trim() === '51', "3 × 12 + 15 = 36 + 15 = 51 cái bánh");
+
+    correctCount += checkAnswer('card-q20', 'fb-q20', document.getElementById('q20-ans').value.trim() === '40', "Số đó chia 4 bằng: 25 - 15 = 10. Số cần tìm là: 10 × 4 = 40");
+
+    // Quy đổi điểm ra thang điểm 10
+    let finalScore = (correctCount / 20) * 10;
+    
+    document.getElementById('scoreboard-box').classList.remove('hidden');
+    document.getElementById('res-time').innerText = document.getElementById('time-clock').innerText;
+    document.getElementById('score-total').innerText = finalScore.toFixed(1) + " / 10 điểm (" + correctCount + "/20 câu)";
+
+    document.getElementById('btn-submit-quiz').style.display = 'none';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+
+</body>
+</html>
